@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: DataHarvester.API/Dockerfile
+    ports:
+      - "5002:80"
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Host=db;Port=5435;Database=harvesterdb;Username=admin;Password=admin
+
+  worker:
+    build:
+      context: .
+      dockerfile: DataHarvester.Worker/Dockerfile
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      - ConnectionStrings__Default=Host=db;Port=5435;Database=harvesterdb;Username=admin;Password=admin
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15673:15672" # web UI
+      - "5673:5672"   # AMQP
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: harvesterdb
+    ports:
+      - "5435:5432"

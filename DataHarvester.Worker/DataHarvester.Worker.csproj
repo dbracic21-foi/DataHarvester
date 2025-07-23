@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>dotnet-DataHarvester.Worker-23b50bd4-c622-4936-b376-e19b99db1f0a</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,5 +13,11 @@
         <ProjectReference Include="..\DataHarvester.Infrastructure\DataHarvester.Infrastructure.csproj" />
         <ProjectReference Include="..\DataHarvester.Domain\DataHarvester.Domain.csproj" />
 
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 </Project>

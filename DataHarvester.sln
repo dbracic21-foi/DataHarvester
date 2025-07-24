@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataHarvester.Worker", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataHarvester.API", "DataHarvester.API\DataHarvester.API.csproj", "{C9B70564-407F-457A-9203-CCD77B332AF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataHarvester.Shared", "DataHarvester.Shared\DataHarvester.Shared.csproj", "{8C0E50B3-7BC2-480E-B6AF-5B35915CE22B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{C9B70564-407F-457A-9203-CCD77B332AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9B70564-407F-457A-9203-CCD77B332AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9B70564-407F-457A-9203-CCD77B332AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0E50B3-7BC2-480E-B6AF-5B35915CE22B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0E50B3-7BC2-480E-B6AF-5B35915CE22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0E50B3-7BC2-480E-B6AF-5B35915CE22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0E50B3-7BC2-480E-B6AF-5B35915CE22B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

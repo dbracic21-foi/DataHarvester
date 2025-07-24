@@ -10,8 +10,14 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1"/>
+        <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
         <ProjectReference Include="..\DataHarvester.Infrastructure\DataHarvester.Infrastructure.csproj" />
         <ProjectReference Include="..\DataHarvester.Domain\DataHarvester.Domain.csproj" />
+        <ProjectReference Include="..\DataHarvester.Shared\DataHarvester.Shared.csproj" />
+
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
 
     </ItemGroup>
 
@@ -19,5 +25,10 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\" />
+      <Folder Include="Queue\" />
     </ItemGroup>
 </Project>

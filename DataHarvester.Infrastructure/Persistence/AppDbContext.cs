@@ -27,5 +27,22 @@ public class AppDbContext : DbContext
             .HasOne(f => f.DataItem)
             .WithMany(d => d.Favorites)
             .HasForeignKey(f => f.DataItemId);
+        
+        //Seed data 
+        modelBuilder.Entity<DataSource>().HasData(
+            new DataSource
+            {
+                Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                Name = "Crypto API",
+                Type = "crypto"
+            },
+            new DataSource
+            {
+                Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                Name = "Weather API",
+                Type = "weather"
+
+            }
+        );
     }
 }

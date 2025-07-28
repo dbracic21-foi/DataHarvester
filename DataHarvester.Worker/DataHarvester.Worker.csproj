@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1"/>
         <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+        <ProjectReference Include="..\DataHarverster.Application\DataHarverster.Application.csproj" />
         <ProjectReference Include="..\DataHarvester.Infrastructure\DataHarvester.Infrastructure.csproj" />
         <ProjectReference Include="..\DataHarvester.Domain\DataHarvester.Domain.csproj" />
         <ProjectReference Include="..\DataHarvester.Shared\DataHarvester.Shared.csproj" />
@@ -28,7 +29,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\" />
       <Folder Include="Queue\" />
     </ItemGroup>
 </Project>

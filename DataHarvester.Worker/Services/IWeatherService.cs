@@ -4,6 +4,6 @@ namespace DataHarvester.Worker.Services;
 
 public interface IWeatherService
 {
-    Task<WeatherResult?> FetchWeatherAsync(string city);
+    Task<WeatherResult?>? FetchWeatherAsync(string city);
 
 }

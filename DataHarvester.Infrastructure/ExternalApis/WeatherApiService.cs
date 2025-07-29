@@ -1,12 +1,14 @@
-﻿using DataHarvester.Domain.Entities;
+﻿using System.Text.Json;
+using DataHarvester.Domain.Entities;
 using DataHarvester.Domain.Inrefaces;
 using DataHarvester.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataHarvester.Infrastructure.ExternalApis;
 
-public class WeatherApiService : IExternalApiService 
+public class WeatherApiService : IExternalApiService
 {
+    public const string WeatherApi = "weather";
     private readonly HttpClient _httpClient;
     private readonly AppDbContext _dbContext;
 
@@ -23,15 +25,20 @@ public class WeatherApiService : IExternalApiService
             return;
 
         var dataSource =
-            await _dbContext.DataSources.FirstOrDefaultAsync(dt => dt.Type.ToLower() == "weather", cancellationToken);
+            await _dbContext.DataSources.FirstOrDefaultAsync(dt => dt.Type.ToLower() == WeatherApi, cancellationToken);
         if (dataSource == null) return;
         //Todo : Throw some error here
         var json = await response.Content.ReadAsStringAsync(cancellationToken);
-
+        using var doc = JsonDocument.Parse(json);
+        var root = doc.RootElement;
+        
+        var extId = root.GetProperty("id").GetRawText();
+        var title = root.GetProperty("name").GetRawText();
         var item = new DataItem
         {
             Id = Guid.NewGuid(),
-            Title = "Weather API",
+            Title = title,
+            ExternalId = extId,
             ContentJson = json,
             SourceId = dataSource.Id,
             CreatedAt = DateTime.UtcNow

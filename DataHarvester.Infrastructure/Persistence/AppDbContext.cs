@@ -12,6 +12,8 @@ public class AppDbContext : DbContext
     public DbSet<DataItem> DataItems => Set<DataItem>();
     public DbSet<DataSource> DataSources => Set<DataSource>();
     public DbSet<Role> Roles => Set<Role>();
+    public DbSet<City> Cities => Set<City>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

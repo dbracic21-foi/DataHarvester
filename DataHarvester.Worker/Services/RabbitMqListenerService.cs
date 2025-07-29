@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using DataHarverster.Application.Services;
 using DataHarvester.Shared.Queue;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -12,11 +13,14 @@ public class RabbitMqListenerService : BackgroundService
     private readonly IConfiguration _config;
     private IConnection _connection;
     private IChannel _channel;
+    private readonly IServiceProvider  _serviceProvider;
+
     
-    public RabbitMqListenerService(ILogger<RabbitMqListenerService> logger, IConfiguration config)
+    public RabbitMqListenerService(ILogger<RabbitMqListenerService> logger, IConfiguration config, IServiceProvider services)
     {
         _logger = logger;
         _config = config;
+        _serviceProvider = services;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -40,6 +44,8 @@ public class RabbitMqListenerService : BackgroundService
         {
             try
             {
+                using var scope = _serviceProvider.CreateScope();
+                var factory = scope.ServiceProvider.GetRequiredService<ExternalApiServiceFactory>();
                 var body = ea.Body.ToArray();
                 var json = Encoding.UTF8.GetString(body);
 
@@ -51,10 +57,10 @@ public class RabbitMqListenerService : BackgroundService
                 }
 
                 _logger.LogInformation($"[RabbitMQ] Received request from User: {request.UserId}, API Type: {request.ApiType}, Endpoint: {request.Endpoint}");
-                using var httpClient = new HttpClient();
-                var response = await httpClient.GetAsync(request.Endpoint);
-                var responseBody = await response.Content.ReadAsStringAsync();
-                _logger.LogInformation($"[API] Status: {response.StatusCode}, Body (trimmed): {responseBody[..Math.Min(200, responseBody.Length)]}");
+                var service = factory.GetService(request.ApiType);
+                await service.FetchAndStoreAsync(request.Endpoint,stoppingToken);
+                //_logger.LogInformation("[API] Fetched result: {Result}", JsonSerializer.Serialize(result));
+                
             }
             catch (Exception ex)
             {

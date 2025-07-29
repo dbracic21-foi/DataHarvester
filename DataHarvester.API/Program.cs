@@ -1,5 +1,7 @@
 using DataHarvester.API.Services;
 using DataHarvester.Infrastructure.Persistence;
+using DataHarvester.Infrastructure.Persistence.Interfaces;
+using DataHarvester.Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddSingleton<QueueSenderServices>();
 builder.Services.AddControllers();
+builder.Services.AddScoped<IDataItemRepository, DataItemRepository>();
+
 
 var app = builder.Build();
 

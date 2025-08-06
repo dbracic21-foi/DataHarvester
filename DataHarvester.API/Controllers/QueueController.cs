@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using DataHarverster.Application.Interfaces;
 using DataHarvester.API.Services;
+using DataHarvester.Domain.Entities;
 using DataHarvester.Infrastructure.Persistence.Interfaces;
 using DataHarvester.Shared.Queue;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ public class QueueController : ControllerBase
 {
     private readonly QueueSenderServices _queueSender;
     private readonly IWeatherDataService _weatherDataService;
+    private readonly ICityRepository _cityRepository;
 
-    public QueueController(QueueSenderServices queueSender, IDataItemRepository dataItemRepository, IWeatherDataService weatherDataService)
+    public QueueController(QueueSenderServices queueSender, IDataItemRepository dataItemRepository, IWeatherDataService weatherDataService, ICityRepository cityRepository)
     {
         _queueSender = queueSender;
         _weatherDataService = weatherDataService;
+        _cityRepository = cityRepository;
     }
 
 

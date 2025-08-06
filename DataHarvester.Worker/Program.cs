@@ -1,6 +1,8 @@
 using DataHarverster.Application.Services;
 using DataHarvester.Infrastructure.ExternalApis;
 using DataHarvester.Infrastructure.Persistence;
+using DataHarvester.Infrastructure.Persistence.Interfaces;
+using DataHarvester.Infrastructure.Persistence.Repository;
 using DataHarvester.Worker;
 using DataHarvester.Worker.Services;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<WeatherApiService>();
 builder.Services.AddScoped<CryptoApiService>();
 builder.Services.AddScoped<ExternalApiServiceFactory>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddHttpClient(); 
 builder.Services.AddHttpClient<IWeatherService, WeatherService>();
 var host = builder.Build();

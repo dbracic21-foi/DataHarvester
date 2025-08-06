@@ -1,4 +1,6 @@
-﻿namespace DataHarvester.Worker.Services;
+﻿using DataHarvester.Infrastructure.ExternalApis;
+
+namespace DataHarvester.Worker.Services;
 
 public class WorkerService : BackgroundService
 {

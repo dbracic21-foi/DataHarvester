@@ -13,10 +13,13 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+      <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\DataHarvester.Domain\DataHarvester.Domain.csproj" />
+      <ProjectReference Include="..\DataHarvester.Shared\DataHarvester.Shared.csproj" />
+
     </ItemGroup>
 
 </Project>

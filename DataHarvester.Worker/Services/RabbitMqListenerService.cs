@@ -58,8 +58,7 @@ public class RabbitMqListenerService : BackgroundService
 
                 _logger.LogInformation($"[RabbitMQ] Received request from User: {request.UserId}, API Type: {request.ApiType}, Endpoint: {request.Endpoint}");
                 var service = factory.GetService(request.ApiType);
-                await service.FetchAndStoreAsync(request.Endpoint,stoppingToken);
-                //_logger.LogInformation("[API] Fetched result: {Result}", JsonSerializer.Serialize(result));
+                if (request.City != null) await service.FetchAndStoreAsync(request.City, stoppingToken);
                 
             }
             catch (Exception ex)

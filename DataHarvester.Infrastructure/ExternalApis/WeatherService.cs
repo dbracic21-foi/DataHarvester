@@ -1,7 +1,9 @@
 ﻿using System.Net.Http.Json;
 using DataHarvester.Worker.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
-namespace DataHarvester.Worker.Services;
+namespace DataHarvester.Infrastructure.ExternalApis;
 
 public class WeatherService : IWeatherService
 {
@@ -12,7 +14,7 @@ public class WeatherService : IWeatherService
     public WeatherService(HttpClient httpClient, IConfiguration config, ILogger<WeatherService> logger)
     {
         _httpClient = httpClient;
-        _apiKey = config["Weather:ApiKey"] ?? throw new ArgumentException("Weather API key not found");
+        _apiKey = config["WeatherApi:ApiKey"] ?? throw new ArgumentException("Weather API key not found");
         _logger = logger;
     }
 
